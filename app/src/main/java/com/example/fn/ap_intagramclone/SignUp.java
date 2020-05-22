@@ -2,6 +2,7 @@ package com.example.fn.ap_intagramclone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -116,6 +117,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
+                // Intent anlegen mit Zuordnung der Klasse
+                Intent intent = new Intent(SignUp.this,
+                        SignUpLoginActivity.class);
+                // die Activity starten
+                startActivity(intent);
+
             }
         });
     }
@@ -123,6 +130,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         try {
+            // User der DB auf dem Server hinzufügen
             // ParseObjekt erstellen
             final ParseObject kickBoxer = new ParseObject("KickBoxer");
             kickBoxer.put("name", edtName.getText().toString());
