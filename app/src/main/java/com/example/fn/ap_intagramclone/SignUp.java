@@ -23,7 +23,7 @@ import java.util.List;
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     // globalen Button anlegen
-    private Button btnSave, btnGetAllData;
+    private Button btnSave, btnGetAllData, btnTransition;
 
     // globalen EditText anlegen
     private EditText edtName, edtPunchSpeed, edtPunchPower, edtKickSpeed, edtKickPower;
@@ -42,6 +42,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         // initialisieren
         btnSave = findViewById(R.id.btnSave);
         btnGetAllData = findViewById(R.id.btnGetAllData);
+        btnTransition = findViewById(R.id.btnNextActivity);
         edtName = findViewById(R.id.edtName);
         edtPunchSpeed = findViewById(R.id.edtPunchSpeed);
         edtPunchPower = findViewById(R.id.edtPunchPower);
@@ -81,6 +82,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                 // Abfrage für Datenabfrage Server erstellen
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+
+                // Server-Abfrage mit Differenzierung
+                // queryAll.whereGreaterThan("punchPower", 3000);
+                queryAll.whereGreaterThanOrEqualTo("punchPower", 3000);
+                queryAll.setLimit(1);
+
+                // Server-Abfrage
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -100,6 +108,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                         }
                     }
                 });
+            }
+        });
+
+        // OnClickListener für Funktion des Buttons anlegen
+        btnTransition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
