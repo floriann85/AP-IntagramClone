@@ -1,7 +1,5 @@
 package com.example.fn.ap_intagramclone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +7,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -61,6 +60,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             "Email, Password is required!",
                             FancyToast.LENGTH_LONG, FancyToast.INFO,
                             true).show();
+
+                    // Methode aufrufen
+                    transitionToSocialMediaActivity();
                 } else {
 
                     // bestehenden User von der DB auf dem Server abfragen
