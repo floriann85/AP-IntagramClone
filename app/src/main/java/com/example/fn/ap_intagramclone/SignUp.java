@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,13 +26,18 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     // globalen EditText anlegen
     private EditText edtEnterEmail, edtUsername, edtEnterPassword;
 
+    // globale LongVar anlegen
+    private long backPressedTime;
+    // globale ToastVar anlegen
+    private Toast backToast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
         // den Title für die Activity setzen
-        setTitle("Instagram - Sign up");
+        setTitle("Welcome to Instagram!");
 
         // Information einer Installation durch einen User,
         // diese wird auf dem Server/ Backend gespeichert
@@ -159,5 +165,20 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 SocialMediaActivity.class);
         // die Activity starten
         startActivity(intent);
+    }
+
+    @Override
+    // Methoden zum Beenden der App mit der Rücktaste
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            // Toast anlegen für Informationsausgabe Display und anzeigen
+            backToast = Toast.makeText(getBaseContext(), "Tap again to quit", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }
