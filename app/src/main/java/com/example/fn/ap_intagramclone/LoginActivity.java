@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnSignUpLoginActivity:
                 // Intent anlegen mit Zuordnung der Klasse für Activity wechseln
                 Intent intent = new Intent(LoginActivity.this,
-                        LoginActivity.class);
+                        SignUp.class);
                 // die Activity starten
                 startActivity(intent);
 
