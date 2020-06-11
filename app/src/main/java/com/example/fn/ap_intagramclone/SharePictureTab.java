@@ -129,6 +129,7 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
                         final ProgressDialog dialog = new ProgressDialog(getContext());
                         dialog.setMessage("Loading...");
                         dialog.show();
+
                         parseObject.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {

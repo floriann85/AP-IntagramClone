@@ -123,5 +123,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 SocialMediaActivity.class);
         // die Activity starten
         startActivity(intent);
+        // die aktuelle Activity beim betätigen der Rücktaste schließen
+        finish();
     }
 }

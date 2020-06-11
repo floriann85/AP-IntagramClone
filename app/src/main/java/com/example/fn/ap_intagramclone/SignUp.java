@@ -165,6 +165,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 SocialMediaActivity.class);
         // die Activity starten
         startActivity(intent);
+        // die aktuelle Activity beim betätigen der Rücktaste schließen
+        finish();
     }
 
     @Override
