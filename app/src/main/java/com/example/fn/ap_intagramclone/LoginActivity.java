@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -60,41 +61,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             "Email, Password is required!",
                             FancyToast.LENGTH_LONG, FancyToast.INFO,
                             true).show();
-
-                    // Methode aufrufen
-                    transitionToSocialMediaActivity();
-                } else {
-
-                    // bestehenden User von der DB auf dem Server abfragen
-                    // ParseObjekt erstellen
-                    ParseUser.logInInBackground(edtLoginEmail.getText()
-                                    .toString(), edtLoginPassword.getText().toString(),
-                            new LogInCallback() {
-                                @Override
-                                public void done(ParseUser user, ParseException e) {
-                                    // Abfrage ob User vorhanden und ob kein Error
-                                    if (user != null && e == null) {
-                                        FancyToast.makeText(LoginActivity.this,
-                                                user.get("username") + " is logged in successfully",
-                                                FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-
-                                        // Methode aufrufen
-                                        transitionToSocialMediaActivity();
-                                    } else {
-                                        FancyToast.makeText(LoginActivity.this,
-                                                e.getMessage(), FancyToast.LENGTH_LONG,
-                                                FancyToast.ERROR, true).show();
-                                    }
-                                }
-                            });
                 }
+
+                // bestehenden User von der DB auf dem Server abfragen
+                // ParseObjekt erstellen
+                ParseUser.logInInBackground(edtLoginEmail.getText().toString(),
+                        edtLoginPassword.getText().toString(),
+                        new LogInCallback() {
+                            @Override
+                            public void done(ParseUser user, ParseException e) {
+                                // Abfrage ob User vorhanden und ob kein Error
+                                if (user != null && e == null) {
+                                    FancyToast.makeText(LoginActivity.this,
+                                            user.get("username") + " is logged in successfully",
+                                            FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+
+                                    // Methode aufrufen
+                                    transitionToSocialMediaActivity();
+
+                                    // die Eingabefelder sind gefüllt aber der User ist nicht registriert
+                                } else if (user == null && !edtLoginEmail.getText().toString().equals("") &&
+                                        !edtLoginPassword.getText().toString().equals("")) {
+                                    // der User ist noch nicht registriert
+                                    FancyToast.makeText(LoginActivity.this,
+                                            "You are not registered!\n" +
+                                                    "Please register!",
+                                            Toast.LENGTH_LONG, FancyToast.ERROR,
+                                            true).show();
+                                }
+                            }
+                        });
 
                 break;
 
             case R.id.btnSignUpLoginActivity:
                 // Intent anlegen mit Zuordnung der Klasse für Activity wechseln
-                Intent intent = new Intent(LoginActivity.this,
-                        SignUp.class);
+                Intent intent = new Intent(LoginActivity.this, SignUp.class);
                 // die Activity starten
                 startActivity(intent);
 
